@@ -14,6 +14,8 @@ namespace Stopify.Data.Models
 
         public decimal Price { get; set; }
 
+        public string Picture { get; set; }
+
         public DateTime ManufacturedOn { get; set; }
     }
 }

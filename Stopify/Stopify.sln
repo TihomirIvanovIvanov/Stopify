@@ -9,11 +9,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{CB0EAA5D-987
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{868D0962-0F28-4335-9C48-6EBEB5237603}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stopify.Data.Models", "Data\Stopify.Data.Models\Stopify.Data.Models.csproj", "{7C05A7F4-5E57-4486-AEA5-DFD82EDD2A69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stopify.Data.Models", "Data\Stopify.Data.Models\Stopify.Data.Models.csproj", "{7C05A7F4-5E57-4486-AEA5-DFD82EDD2A69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stopify.Data", "Data\Stopify.Data\Stopify.Data.csproj", "{EED76071-869C-4EEA-B6A7-68DEBAD84480}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stopify.Data", "Data\Stopify.Data\Stopify.Data.csproj", "{EED76071-869C-4EEA-B6A7-68DEBAD84480}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stopify.Web", "Web\Stopify.Web\Stopify.Web.csproj", "{7308CF49-1180-4040-B017-06C910F652CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stopify.Web", "Web\Stopify.Web\Stopify.Web.csproj", "{7308CF49-1180-4040-B017-06C910F652CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stopify.Services", "Services\Stopify.Services\Stopify.Services.csproj", "{56086AB9-DB3A-4A1A-A2D4-7B0EF9E01077}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stopify.Web.ViewModels", "Web\Stopify.Web.ViewModels\Stopify.Web.ViewModels.csproj", "{1075AAAC-62D5-48F2-AC0F-D6358DABC4EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stopify.Web.InputModels", "Web\Stopify.Web.InputModels\Stopify.Web.InputModels.csproj", "{CFC381A4-F9BA-4B5F-AC37-7EC65C553966}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +39,18 @@ Global
 		{7308CF49-1180-4040-B017-06C910F652CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7308CF49-1180-4040-B017-06C910F652CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7308CF49-1180-4040-B017-06C910F652CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56086AB9-DB3A-4A1A-A2D4-7B0EF9E01077}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56086AB9-DB3A-4A1A-A2D4-7B0EF9E01077}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56086AB9-DB3A-4A1A-A2D4-7B0EF9E01077}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56086AB9-DB3A-4A1A-A2D4-7B0EF9E01077}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1075AAAC-62D5-48F2-AC0F-D6358DABC4EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1075AAAC-62D5-48F2-AC0F-D6358DABC4EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1075AAAC-62D5-48F2-AC0F-D6358DABC4EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1075AAAC-62D5-48F2-AC0F-D6358DABC4EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFC381A4-F9BA-4B5F-AC37-7EC65C553966}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFC381A4-F9BA-4B5F-AC37-7EC65C553966}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFC381A4-F9BA-4B5F-AC37-7EC65C553966}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFC381A4-F9BA-4B5F-AC37-7EC65C553966}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +59,9 @@ Global
 		{7C05A7F4-5E57-4486-AEA5-DFD82EDD2A69} = {5B806DE6-93E4-48F2-A177-ECB51CF2F75E}
 		{EED76071-869C-4EEA-B6A7-68DEBAD84480} = {5B806DE6-93E4-48F2-A177-ECB51CF2F75E}
 		{7308CF49-1180-4040-B017-06C910F652CE} = {CB0EAA5D-9873-41A9-A40A-AC4BFB64165F}
+		{56086AB9-DB3A-4A1A-A2D4-7B0EF9E01077} = {868D0962-0F28-4335-9C48-6EBEB5237603}
+		{1075AAAC-62D5-48F2-AC0F-D6358DABC4EF} = {CB0EAA5D-9873-41A9-A40A-AC4BFB64165F}
+		{CFC381A4-F9BA-4B5F-AC37-7EC65C553966} = {CB0EAA5D-9873-41A9-A40A-AC4BFB64165F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CF84DAEC-ECAF-49FA-920E-92CB4BDF95C8}

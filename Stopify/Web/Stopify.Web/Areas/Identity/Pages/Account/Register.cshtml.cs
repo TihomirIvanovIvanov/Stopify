@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Stopify.Data.Models;
@@ -68,7 +67,7 @@ namespace Stopify.Web.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var isRoot = _userManager.Users.Any();
+                var isRoot = !_userManager.Users.Any();
                 var user = new StopifyUser { UserName = Input.Username, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
@@ -78,8 +77,12 @@ namespace Stopify.Web.Areas.Identity.Pages.Account
                     {
                         await _userManager.AddToRoleAsync(user, "Admin");
                     }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, "User");
+                    }
 
-                    return LocalRedirect(returnUrl);
+                    return Redirect(returnUrl);
                 }
 
                 foreach (var error in result.Errors)
