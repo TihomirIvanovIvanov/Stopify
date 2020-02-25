@@ -8,7 +8,7 @@ namespace Stopify.Data.Models
 
         public string Name { get; set; }
 
-        public int ProductId { get; set; }
+        public int ProductTypeId { get; set; }
 
         public virtual ProductType ProductType { get; set; }
 

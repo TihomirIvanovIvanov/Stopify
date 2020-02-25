@@ -20,12 +20,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Stopify.Data\Stopify.Data.csproj" />
     <ProjectReference Include="..\..\Services\Stopify.Services.Models\Stopify.Services.Models.csproj" />
+    <ProjectReference Include="..\..\Services\Stopify.Services\Stopify.Services.csproj" />
     <ProjectReference Include="..\Stopify.Web.InputModels\Stopify.Web.InputModels.csproj" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="Areas\Administration\Views\" />
+    <ProjectReference Include="..\Stopify.Web.ViewModels\Stopify.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

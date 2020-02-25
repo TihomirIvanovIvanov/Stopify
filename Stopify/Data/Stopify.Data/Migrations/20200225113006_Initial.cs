@@ -172,8 +172,7 @@ namespace Stopify.Data.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    ProductId = table.Column<int>(nullable: false),
-                    ProductTypeId = table.Column<int>(nullable: true),
+                    ProductTypeId = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
                     Picture = table.Column<string>(nullable: true),
                     ManufacturedOn = table.Column<DateTime>(nullable: false)
@@ -186,7 +185,7 @@ namespace Stopify.Data.Migrations
                         column: x => x.ProductTypeId,
                         principalTable: "ProductTypes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

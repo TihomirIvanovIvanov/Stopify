@@ -10,7 +10,7 @@ using Stopify.Data;
 namespace Stopify.Data.Migrations
 {
     [DbContext(typeof(StopifyDbContext))]
-    [Migration("20200225092550_Initial")]
+    [Migration("20200225113006_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -169,10 +169,7 @@ namespace Stopify.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductTypeId")
+                    b.Property<int>("ProductTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -320,7 +317,9 @@ namespace Stopify.Data.Migrations
                 {
                     b.HasOne("Stopify.Data.Models.ProductType", "ProductType")
                         .WithMany()
-                        .HasForeignKey("ProductTypeId");
+                        .HasForeignKey("ProductTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
