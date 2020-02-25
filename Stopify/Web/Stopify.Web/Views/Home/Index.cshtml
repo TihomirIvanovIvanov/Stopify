@@ -16,7 +16,6 @@ else
     <div class="d-flex justify-content-between">
         <div id="products-search-bar-holder" class="form-group d-flex justify-content-between w-50">
             <input type="text" class="form-control text-primary" id="products-search-bar" name="search" placeholder="Search..." />
-            <button class="btn btn-primary font-weight-bold ml-2">Search</button>
         </div>
         <div id="sort-holder" class="form-group w-40 d-flex justify-content-between">
             <label for="sort" class="text-primary font-weight-bold w-30 h4 mt-1 text-right">Order By: </label>
@@ -55,4 +54,20 @@ else
             </div>
         }
     </div>
+
+    <script>
+        $('#products-search-bar').on("change paste keyup" ,function () {
+            $('.product').show();
+
+            let searchValue = $('#products-search-bar').val();
+
+            for (let elem of $('.product')) {
+                let productName = $($(elem).children()[1]).text();
+
+                if (!productName.toLowerCase().includes(searchValue.toLowerCase())) {
+                    $(elem).hide();
+                }
+            }
+        });
+    </script>
 }
