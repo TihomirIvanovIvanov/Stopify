@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Stopify.Data;
 using Stopify.Data.Models;
+using Stopify.Services.Mapping;
 using Stopify.Services.Models;
 using System;
 using System.Linq;
@@ -53,25 +54,14 @@ namespace Stopify.Services
 
         public IQueryable<ProductServiceModel> GetAllProducts()
         {
-            var allProducts = this.context.Products
-                .Select(product => new ProductServiceModel
-                {
-                    Name = product.Name,
-                    Picture = product.Picture,
-                    Price = product.Price
-                }).AsQueryable();
+            var allProducts = this.context.Products.To<ProductServiceModel>();
 
             return allProducts;
         }
 
         public IQueryable<ProductTypeServiceModel> GetAllProductTypes()
         {
-            var productTypes = this.context.ProductTypes
-                .Select(productType => new ProductTypeServiceModel
-                {
-                    Id = productType.Id,
-                    Name = productType.Name
-                }).AsQueryable();
+            var productTypes = this.context.ProductTypes.To<ProductTypeServiceModel>();
 
             return productTypes;
         }

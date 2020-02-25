@@ -9,8 +9,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Stopify.Data;
 using Stopify.Data.Models;
 using Stopify.Services;
+using Stopify.Services.Mapping;
+using Stopify.Services.Models;
+using Stopify.Web.InputModels;
+using Stopify.Web.ViewModels.Home.Index;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 
 namespace Stopify.Web
 {
@@ -65,6 +70,11 @@ namespace Stopify.Web
         {
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
             CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
+
+            AutoMapperConfig.RegisterMappings(
+                typeof(ProductCreateInputModel).GetTypeInfo().Assembly,
+                typeof(ProductHomeViewModel).GetTypeInfo().Assembly,
+                typeof(ProductServiceModel).GetTypeInfo().Assembly);
 
             app.UseRouting();
 
