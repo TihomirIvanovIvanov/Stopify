@@ -52,6 +52,11 @@ namespace Stopify.Web.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductCreateInputModel productCreateInputModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View();
+            }
+
             var productServiceModel = new ProductServiceModel
             {
                 Name = productCreateInputModel.Name,
@@ -60,7 +65,8 @@ namespace Stopify.Web.Areas.Administration.Controllers
                 ProductType = new ProductTypeServiceModel
                 {
                     Name = productCreateInputModel.ProductType
-                }
+                },
+                Picture = null
             };
 
             await this.productService.Create(productServiceModel);
