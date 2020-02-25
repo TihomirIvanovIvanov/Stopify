@@ -28,7 +28,8 @@ namespace Stopify.Services
                 Name = productServiceModel.Name,
                 Price = productServiceModel.Price,
                 ManufacturedOn = productServiceModel.ManufacturedOn,
-                ProductType = productTypeNameFromDb
+                ProductType = productTypeNameFromDb,
+                Picture = productServiceModel.Picture
             };
 
             this.context.Products.Add(product);

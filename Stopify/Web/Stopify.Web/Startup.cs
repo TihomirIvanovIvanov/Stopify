@@ -1,3 +1,4 @@
+using CloudinaryDotNet;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -32,6 +33,15 @@ namespace Stopify.Web
                 .AddEntityFrameworkStores<StopifyDbContext>()
                 .AddDefaultTokenProviders();
 
+            var cloudinaryCredentials = new Account(
+                this.Configuration["Cloudinary:CloudName"],
+                this.Configuration["Cloudinary:ApiKey"],
+                this.Configuration["Cloudinary:ApiSecret"]);
+
+            var cloudinaryUtility = new Cloudinary(cloudinaryCredentials);
+
+            services.AddSingleton(cloudinaryUtility);
+
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
@@ -46,6 +56,7 @@ namespace Stopify.Web
             });
 
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
@@ -53,6 +64,7 @@ namespace Stopify.Web
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
 
             app.UseRouting();
 

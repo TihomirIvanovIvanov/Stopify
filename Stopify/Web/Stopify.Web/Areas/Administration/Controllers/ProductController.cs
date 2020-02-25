@@ -12,9 +12,12 @@ namespace Stopify.Web.Areas.Administration.Controllers
     {
         private readonly IProductService productService;
 
-        public ProductController(IProductService productService)
+        private readonly ICloudinaryService cloudinaryService;
+
+        public ProductController(IProductService productService, ICloudinaryService cloudinaryService)
         {
             this.productService = productService;
+            this.cloudinaryService = cloudinaryService;
         }
 
         [HttpGet("/Administration/Product/Type/Create")]
@@ -57,6 +60,9 @@ namespace Stopify.Web.Areas.Administration.Controllers
                 return this.View();
             }
 
+            var pictureUrl = await this.cloudinaryService
+                .UploadPictureAsync(productCreateInputModel.Picture, productCreateInputModel.Name);
+
             var productServiceModel = new ProductServiceModel
             {
                 Name = productCreateInputModel.Name,
@@ -66,7 +72,7 @@ namespace Stopify.Web.Areas.Administration.Controllers
                 {
                     Name = productCreateInputModel.ProductType
                 },
-                Picture = null
+                Picture = pictureUrl
             };
 
             await this.productService.Create(productServiceModel);
