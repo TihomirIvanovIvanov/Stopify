@@ -5,6 +5,7 @@ using Stopify.Web.InputModels;
 using Stopify.Web.ViewModels;
 using System.Threading.Tasks;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Stopify.Web.Areas.Administration.Controllers
 {
@@ -42,7 +43,7 @@ namespace Stopify.Web.Areas.Administration.Controllers
         [HttpGet(Name = "Create")]
         public async Task<IActionResult> Create()
         {
-            var allProductTypes = await this.productService.GetAllProductTypes();
+            var allProductTypes = await this.productService.GetAllProductTypes().ToListAsync();
 
             this.ViewData["types"] = allProductTypes.Select(productType => new ProductCreateProductTypeViewModel
             {

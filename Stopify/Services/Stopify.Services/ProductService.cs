@@ -51,7 +51,20 @@ namespace Stopify.Services
             return result > 0;
         }
 
-        public async Task<IQueryable<ProductTypeServiceModel>> GetAllProductTypes()
+        public IQueryable<ProductServiceModel> GetAllProducts()
+        {
+            var allProducts = this.context.Products
+                .Select(product => new ProductServiceModel
+                {
+                    Name = product.Name,
+                    Picture = product.Picture,
+                    Price = product.Price
+                }).AsQueryable();
+
+            return allProducts;
+        }
+
+        public IQueryable<ProductTypeServiceModel> GetAllProductTypes()
         {
             var productTypes = this.context.ProductTypes
                 .Select(productType => new ProductTypeServiceModel
