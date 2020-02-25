@@ -1,4 +1,5 @@
-﻿using Stopify.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Stopify.Data;
 using Stopify.Data.Models;
 using Stopify.Services.Models;
 using System;
@@ -18,18 +19,16 @@ namespace Stopify.Services
 
         public async Task<bool> Create(ProductServiceModel productServiceModel)
         {
-            var productTypeId = this.context.ProductTypes
-                .Where(productType => productType.Id == productServiceModel.ProductId)
-                .Select(productTypeId => productTypeId.Id)
-                .FirstOrDefault();
+            var productTypeNameFromDb = await this.context.ProductTypes
+                .FirstOrDefaultAsync(productType => productType.Name == productServiceModel.ProductType.Name);
 
             var product = new Product
             {
                 Id = Guid.NewGuid().ToString(),
-                ProductTypeId = productTypeId,
                 Name = productServiceModel.Name,
                 Price = productServiceModel.Price,
                 ManufacturedOn = productServiceModel.ManufacturedOn,
+                ProductType = productTypeNameFromDb
             };
 
             this.context.Products.Add(product);

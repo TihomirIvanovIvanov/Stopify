@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Stopify.Data;
 using Stopify.Data.Models;
 using Stopify.Services;
+using System.Globalization;
 using System.Linq;
 
 namespace Stopify.Web
@@ -51,6 +52,8 @@ namespace Stopify.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+
             app.UseRouting();
 
             using (var serviceScope = app.ApplicationServices.CreateScope())
