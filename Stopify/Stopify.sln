@@ -15,11 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stopify.Data", "Data\Stopif
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stopify.Web", "Web\Stopify.Web\Stopify.Web.csproj", "{7308CF49-1180-4040-B017-06C910F652CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stopify.Services", "Services\Stopify.Services\Stopify.Services.csproj", "{56086AB9-DB3A-4A1A-A2D4-7B0EF9E01077}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stopify.Services", "Services\Stopify.Services\Stopify.Services.csproj", "{56086AB9-DB3A-4A1A-A2D4-7B0EF9E01077}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stopify.Web.ViewModels", "Web\Stopify.Web.ViewModels\Stopify.Web.ViewModels.csproj", "{1075AAAC-62D5-48F2-AC0F-D6358DABC4EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stopify.Web.ViewModels", "Web\Stopify.Web.ViewModels\Stopify.Web.ViewModels.csproj", "{1075AAAC-62D5-48F2-AC0F-D6358DABC4EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stopify.Web.InputModels", "Web\Stopify.Web.InputModels\Stopify.Web.InputModels.csproj", "{CFC381A4-F9BA-4B5F-AC37-7EC65C553966}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stopify.Web.InputModels", "Web\Stopify.Web.InputModels\Stopify.Web.InputModels.csproj", "{CFC381A4-F9BA-4B5F-AC37-7EC65C553966}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stopify.Services.Models", "Services\Stopify.Services.Models\Stopify.Services.Models.csproj", "{156C6A74-35BC-466C-AF90-52387CBD1F7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{CFC381A4-F9BA-4B5F-AC37-7EC65C553966}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFC381A4-F9BA-4B5F-AC37-7EC65C553966}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFC381A4-F9BA-4B5F-AC37-7EC65C553966}.Release|Any CPU.Build.0 = Release|Any CPU
+		{156C6A74-35BC-466C-AF90-52387CBD1F7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{156C6A74-35BC-466C-AF90-52387CBD1F7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{156C6A74-35BC-466C-AF90-52387CBD1F7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{156C6A74-35BC-466C-AF90-52387CBD1F7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{56086AB9-DB3A-4A1A-A2D4-7B0EF9E01077} = {868D0962-0F28-4335-9C48-6EBEB5237603}
 		{1075AAAC-62D5-48F2-AC0F-D6358DABC4EF} = {CB0EAA5D-9873-41A9-A40A-AC4BFB64165F}
 		{CFC381A4-F9BA-4B5F-AC37-7EC65C553966} = {CB0EAA5D-9873-41A9-A40A-AC4BFB64165F}
+		{156C6A74-35BC-466C-AF90-52387CBD1F7C} = {868D0962-0F28-4335-9C48-6EBEB5237603}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CF84DAEC-ECAF-49FA-920E-92CB4BDF95C8}

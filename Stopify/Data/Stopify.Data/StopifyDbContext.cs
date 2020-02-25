@@ -9,6 +9,8 @@ namespace Stopify.Data
     {
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<ProductType> ProductTypes { get; set; }
+
         public StopifyDbContext(DbContextOptions options)
             : base(options)
         {
