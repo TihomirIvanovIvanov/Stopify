@@ -65,5 +65,13 @@ namespace Stopify.Services
 
             return productTypes;
         }
+
+        public async Task<ProductServiceModel> GetById(string id)
+        {
+            var product = await this.context.Products.To<ProductServiceModel>()
+                .FirstOrDefaultAsync(product => product.Id == id);
+
+            return product;
+        }
     }
 }

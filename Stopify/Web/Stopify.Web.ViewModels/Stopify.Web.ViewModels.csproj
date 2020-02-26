@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Services\Stopify.Services.Mapping\Stopify.Services.Mapping.csproj" />
+    <ProjectReference Include="..\..\Services\Stopify.Services.Models\Stopify.Services.Models.csproj" />
+  </ItemGroup>
+
 </Project>

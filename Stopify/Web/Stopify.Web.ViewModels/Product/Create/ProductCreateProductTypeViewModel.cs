@@ -1,4 +1,4 @@
-﻿namespace Stopify.Web.ViewModels
+﻿namespace Stopify.Web.ViewModels.Product.Create
 {
     public class ProductCreateProductTypeViewModel
     {

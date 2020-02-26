@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Stopify.Services;
 using Stopify.Services.Models;
 using Stopify.Web.InputModels;
-using Stopify.Web.ViewModels;
-using System.Threading.Tasks;
+using Stopify.Web.ViewModels.Product.Create;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Stopify.Web.Areas.Administration.Controllers
 {
