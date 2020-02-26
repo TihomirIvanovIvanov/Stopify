@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Stopify.Services;
 using Stopify.Services.Mapping;
+using Stopify.Web.InputModels;
 using Stopify.Web.ViewModels.Product.Details;
 using System.Threading.Tasks;
 
@@ -31,6 +32,14 @@ namespace Stopify.Web.Controllers
             };
 
             return View(productDetailsViewModel);
+        }
+
+        [HttpPost(Name = "Order")]
+        public async Task<IActionResult> Order(ProductOrderInputModel productOrderInputModel)
+        {
+
+
+            return this.Redirect("/");
         }
     }
 }
