@@ -11,6 +11,8 @@ namespace Stopify.Data
 
         public DbSet<ProductType> ProductTypes { get; set; }
 
+        public DbSet<Order> Orders { get; set; }
+
         public StopifyDbContext(DbContextOptions options)
             : base(options)
         {
