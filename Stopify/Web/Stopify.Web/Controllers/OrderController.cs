@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Stopify.Services;
 using Stopify.Services.Mapping;
 using Stopify.Web.ViewModels.Order.Cart;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;

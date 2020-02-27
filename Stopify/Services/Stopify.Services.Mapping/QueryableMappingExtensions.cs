@@ -16,7 +16,7 @@ namespace Stopify.Services.Mapping
                 throw new ArgumentNullException(nameof(source));
             }
 
-            return source.ProjectTo(AutoMapperConfig.MapperInstance.ConfigurationProvider, null, membersToExpand);
+            return source.ProjectTo(membersToExpand);
         }
 
         public static IQueryable<TDestination> To<TDestination>(
@@ -28,7 +28,7 @@ namespace Stopify.Services.Mapping
                 throw new ArgumentNullException(nameof(source));
             }
 
-            return source.ProjectTo<TDestination>(AutoMapperConfig.MapperInstance.ConfigurationProvider, parameters);
+            return source.ProjectTo<TDestination>(parameters);
         }
     }
 }

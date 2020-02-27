@@ -22,7 +22,8 @@ namespace Stopify.Services
         {
             var order = orderServiceModel.To<Order>();
 
-            order.Status = await this.context.OrderStatuses.FirstOrDefaultAsync(status => status.Name == "Active");
+            order.Id = Guid.NewGuid().ToString();
+            order.Status = await this.context.OrderStatuses.SingleOrDefaultAsync(status => status.Name == "Active");
             order.IssuedOn = DateTime.UtcNow;
 
             this.context.Orders.Add(order);
