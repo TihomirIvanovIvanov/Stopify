@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Stopify.Services;
 using Stopify.Services.Mapping;
+using Stopify.Services.Models;
 using Stopify.Web.InputModels;
 using Stopify.Web.ViewModels.Product.Details;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Stopify.Web.Controllers
@@ -11,9 +13,12 @@ namespace Stopify.Web.Controllers
     {
         private readonly IProductService productService;
 
-        public ProductController(IProductService productService)
+        private readonly IOrderService orderService;
+
+        public ProductController(IProductService productService, IOrderService orderService)
         {
             this.productService = productService;
+            this.orderService = orderService;
         }
 
         [HttpGet(Name = "Details")]
@@ -37,7 +42,11 @@ namespace Stopify.Web.Controllers
         [HttpPost(Name = "Order")]
         public async Task<IActionResult> Order(ProductOrderInputModel productOrderInputModel)
         {
+            var orderServiceModel = productOrderInputModel.To<OrderServiceModel>();
 
+            orderServiceModel.IssuerId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            await this.orderService.CreateOrder(orderServiceModel);
 
             return this.Redirect("/");
         }

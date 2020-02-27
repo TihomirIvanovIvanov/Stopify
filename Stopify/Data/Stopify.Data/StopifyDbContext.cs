@@ -13,6 +13,8 @@ namespace Stopify.Data
 
         public DbSet<Order> Orders { get; set; }
 
+        public DbSet<OrderStatus> OrderStatuses { get; set; }
+
         public StopifyDbContext(DbContextOptions options)
             : base(options)
         {
