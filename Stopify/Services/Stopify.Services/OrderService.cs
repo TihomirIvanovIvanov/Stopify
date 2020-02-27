@@ -4,6 +4,7 @@ using Stopify.Data.Models;
 using Stopify.Services.Mapping;
 using Stopify.Services.Models;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Stopify.Services
@@ -28,6 +29,13 @@ namespace Stopify.Services
             var result = await this.context.SaveChangesAsync();
 
             return result > 0;
+        }
+
+        public IQueryable<OrderServiceModel> GetAll()
+        {
+            var allActiveOrders = this.context.Orders.To<OrderServiceModel>();
+
+            return allActiveOrders;
         }
     }
 }

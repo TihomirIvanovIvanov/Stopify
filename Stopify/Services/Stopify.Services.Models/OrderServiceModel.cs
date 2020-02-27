@@ -4,7 +4,7 @@ using System;
 
 namespace Stopify.Services.Models
 {
-    public class OrderServiceModel : IMapTo<Order>
+    public class OrderServiceModel : IMapTo<Order>, IMapFrom<Order>
     {
         public DateTime IssuedOn { get; set; }
 
