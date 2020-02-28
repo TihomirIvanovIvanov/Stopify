@@ -31,6 +31,11 @@ namespace Stopify.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Order(ProductOrderInputModel productOrderInputModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.Redirect($"/Product/Details/{productOrderInputModel.ProductId}");
+            }
+
             var orderServiceModel = productOrderInputModel.To<OrderServiceModel>();
 
             orderServiceModel.IssuerId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
