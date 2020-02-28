@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Stopify.Data;
 using Stopify.Data.Models;
 using Stopify.Services.Mapping;
@@ -23,7 +24,7 @@ namespace Stopify.Services
             var productTypeNameFromDb = await this.context.ProductTypes
                 .FirstOrDefaultAsync(productType => productType.Name == productServiceModel.ProductType.Name);
 
-            var product = AutoMapper.Mapper.Map<Product>(productServiceModel);
+            var product = Mapper.Map<Product>(productServiceModel);
             product.Id = Guid.NewGuid().ToString();
             product.ProductType = productTypeNameFromDb;
 
@@ -35,10 +36,7 @@ namespace Stopify.Services
 
         public async Task<bool> CreateProductType(ProductTypeServiceModel productTypeServiceModel)
         {
-            var productType = new ProductType
-            {
-                Name = productTypeServiceModel.Name,
-            };
+            var productType = Mapper.Map<ProductType>(productTypeServiceModel);
 
             this.context.ProductTypes.Add(productType);
             var result = await this.context.SaveChangesAsync();

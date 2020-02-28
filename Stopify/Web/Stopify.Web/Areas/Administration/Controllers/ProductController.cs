@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Stopify.Services;
 using Stopify.Services.Models;
@@ -30,10 +31,7 @@ namespace Stopify.Web.Areas.Administration.Controllers
         [HttpPost("/Administration/Product/Type/Create")]
         public async Task<IActionResult> CreateType(ProductTypeCreateInputModel productTypeCreateInputModel)
         {
-            var productTypeServiceModel = new ProductTypeServiceModel
-            {
-                Name = productTypeCreateInputModel.Name
-            };
+            var productTypeServiceModel = Mapper.Map<ProductTypeServiceModel>(productTypeCreateInputModel);
 
             await this.productService.CreateProductType(productTypeServiceModel);
 
@@ -63,7 +61,7 @@ namespace Stopify.Web.Areas.Administration.Controllers
             var pictureUrl = await this.cloudinaryService
                 .UploadPictureAsync(productCreateInputModel.Picture, productCreateInputModel.Name);
 
-            var productServiceModel = AutoMapper.Mapper.Map<ProductServiceModel>(productCreateInputModel);
+            var productServiceModel = Mapper.Map<ProductServiceModel>(productCreateInputModel);
             productServiceModel.Picture = pictureUrl;
 
             await this.productService.Create(productServiceModel);

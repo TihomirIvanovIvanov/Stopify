@@ -1,6 +1,9 @@
-﻿namespace Stopify.Web.ViewModels.Home.Index
+﻿using Stopify.Services.Mapping;
+using Stopify.Services.Models;
+
+namespace Stopify.Web.ViewModels.Home.Index
 {
-    public class ProductHomeViewModel
+    public class ProductHomeViewModel : IMapFrom<ProductServiceModel>
     {
         public string Id { get; set; }
 

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Stopify.Services;
+using Stopify.Services.Mapping;
 using Stopify.Web.ViewModels.Home.Index;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Stopify.Web.Controllers
@@ -21,13 +21,7 @@ namespace Stopify.Web.Controllers
             if (this.User.Identity.IsAuthenticated)
             {
                 var products = await this.productService.GetAllProducts()
-                    .Select(product => new ProductHomeViewModel
-                    {
-                        Id = product.Id,
-                        Name = product.Name,
-                        Price = product.Price,
-                        Picture = product.Picture
-                    }).ToListAsync();
+                    .To<ProductHomeViewModel>().ToListAsync();
 
                 return this.View(products);
             }
