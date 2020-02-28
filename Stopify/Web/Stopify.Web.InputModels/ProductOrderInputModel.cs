@@ -8,7 +8,7 @@ namespace Stopify.Web.InputModels
     {
         public string ProductId { get; set; }
 
-        [Range(0, int.MaxValue)]
+        [Range(1, int.MaxValue)]
         public int Quantity { get; set; }
     }
 }
