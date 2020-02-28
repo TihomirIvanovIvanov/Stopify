@@ -64,17 +64,8 @@ namespace Stopify.Web.Areas.Administration.Controllers
             var pictureUrl = await this.cloudinaryService
                 .UploadPictureAsync(productCreateInputModel.Picture, productCreateInputModel.Name);
 
-            var productServiceModel = new ProductServiceModel
-            {
-                Name = productCreateInputModel.Name,
-                Price = productCreateInputModel.Price,
-                ManufacturedOn = productCreateInputModel.ManufacturedOn,
-                ProductType = new ProductTypeServiceModel
-                {
-                    Name = productCreateInputModel.ProductType
-                },
-                Picture = pictureUrl
-            };
+            var productServiceModel = AutoMapper.Mapper.Map<ProductServiceModel>(productCreateInputModel);
+            productServiceModel.Picture = pictureUrl;
 
             await this.productService.Create(productServiceModel);
 

@@ -23,15 +23,9 @@ namespace Stopify.Services
             var productTypeNameFromDb = await this.context.ProductTypes
                 .FirstOrDefaultAsync(productType => productType.Name == productServiceModel.ProductType.Name);
 
-            var product = new Product
-            {
-                Id = Guid.NewGuid().ToString(),
-                Name = productServiceModel.Name,
-                Price = productServiceModel.Price,
-                ManufacturedOn = productServiceModel.ManufacturedOn,
-                ProductType = productTypeNameFromDb,
-                Picture = productServiceModel.Picture
-            };
+            var product = AutoMapper.Mapper.Map<Product>(productServiceModel);
+            product.Id = Guid.NewGuid().ToString();
+            product.ProductType = productTypeNameFromDb;
 
             this.context.Products.Add(product);
             var result = await this.context.SaveChangesAsync();
