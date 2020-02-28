@@ -40,7 +40,6 @@ namespace Stopify.Web.Areas.Administration.Controllers
             return this.Redirect("/");
         }
 
-        [HttpGet(Name = "Create")]
         public async Task<IActionResult> Create()
         {
             var allProductTypes = await this.productService.GetAllProductTypes().ToListAsync();
@@ -68,6 +67,13 @@ namespace Stopify.Web.Areas.Administration.Controllers
             productServiceModel.Picture = pictureUrl;
 
             await this.productService.Create(productServiceModel);
+
+            return this.Redirect("/");
+        }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            await this.productService.DeleteById(id);
 
             return this.Redirect("/");
         }

@@ -21,7 +21,6 @@ namespace Stopify.Web.Controllers
             this.orderService = orderService;
         }
 
-        [HttpGet(Name = "Details")]
         public async Task<IActionResult> Details(string id)
         {
             var productDetails = await this.productService.GetById(id);
@@ -39,7 +38,7 @@ namespace Stopify.Web.Controllers
             return View(productDetailsViewModel);
         }
 
-        [HttpPost(Name = "Order")]
+        [HttpPost]
         public async Task<IActionResult> Order(ProductOrderInputModel productOrderInputModel)
         {
             var orderServiceModel = productOrderInputModel.To<OrderServiceModel>();

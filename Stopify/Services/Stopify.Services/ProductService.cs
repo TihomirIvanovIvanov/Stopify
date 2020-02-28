@@ -46,6 +46,16 @@ namespace Stopify.Services
             return result > 0;
         }
 
+        public async Task<bool> DeleteById(string id)
+        {
+            var product = await this.context.Products.FirstOrDefaultAsync(product => product.Id == id);
+
+            this.context.Products.Remove(product);
+            var result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
         public IQueryable<ProductServiceModel> GetAllProducts()
         {
             var allProducts = this.context.Products.To<ProductServiceModel>();

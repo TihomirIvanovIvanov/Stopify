@@ -1,4 +1,5 @@
-﻿using Stopify.Services.Models;
+﻿using Stopify.Data.Models;
+using Stopify.Services.Models;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,6 +12,8 @@ namespace Stopify.Services
         IQueryable<ProductServiceModel> GetAllProducts();
 
         Task<ProductServiceModel> GetById(string id);
+
+        Task<bool> DeleteById(string id);
 
         Task<bool> Create(ProductServiceModel productServiceModel);
 
