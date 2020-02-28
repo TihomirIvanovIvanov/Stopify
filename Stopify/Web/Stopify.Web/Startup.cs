@@ -13,7 +13,6 @@ using Stopify.Services.Mapping;
 using Stopify.Services.Models;
 using Stopify.Web.InputModels;
 using Stopify.Web.ViewModels.Home.Index;
-using System;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;

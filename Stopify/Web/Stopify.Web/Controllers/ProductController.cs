@@ -21,19 +21,9 @@ namespace Stopify.Web.Controllers
             this.orderService = orderService;
         }
 
-        public async Task<IActionResult> Details(string id)
+        public IActionResult Details(string id)
         {
-            var productDetails = await this.productService.GetById(id);
-            
-            var productDetailsViewModel = new ProductDetailsViewModel
-            {
-                Id = productDetails.Id,
-                Name = productDetails.Name,
-                ManufacturedOn = productDetails.ManufacturedOn,
-                Picture = productDetails.Picture,
-                Price = productDetails.Price,
-                ProductTypeName = productDetails.ProductType.Name
-            };
+            var productDetailsViewModel = this.productService.GetById(id).To<ProductDetailsViewModel>();
 
             return View(productDetailsViewModel);
         }
