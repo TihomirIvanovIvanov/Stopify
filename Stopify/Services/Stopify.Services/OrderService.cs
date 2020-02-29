@@ -18,12 +18,28 @@ namespace Stopify.Services
             this.context = context;
         }
 
+        public async Task<bool> CompleteOrder(string orderId)
+        {
+            var orderFromDb = await this.context.Orders
+                .FirstOrDefaultAsync(order => order.Id == orderId);
+
+            //TODO: Validate that the requisted order is existent and with status "Active"
+
+            orderFromDb.Status = await this.context.OrderStatuses
+                .FirstOrDefaultAsync(status => status.Name == "Completed");
+
+            this.context.Update(orderFromDb);
+            var result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
         public async Task<bool> CreateOrder(OrderServiceModel orderServiceModel)
         {
             var order = orderServiceModel.To<Order>();
 
             order.Id = Guid.NewGuid().ToString();
-            order.Status = await this.context.OrderStatuses.SingleOrDefaultAsync(status => status.Name == "Active");
+            order.Status = await this.context.OrderStatuses.FirstOrDefaultAsync(status => status.Name == "Active");
             order.IssuedOn = DateTime.UtcNow;
 
             await this.context.Orders.AddAsync(order);
@@ -39,6 +55,12 @@ namespace Stopify.Services
                 .To<OrderServiceModel>();
 
             return allActiveOrders;
+        }
+
+        public async Task SetOrdersToReceipt(Receipt receipt)
+        {
+            receipt.Orders = await this.context.Orders.Where(order =>
+                order.IssuerId == receipt.RecipientId && order.Status.Name == "Active").ToListAsync();
         }
     }
 }

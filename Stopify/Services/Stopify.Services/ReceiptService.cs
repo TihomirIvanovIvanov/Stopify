@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Stopify.Data;
 using Stopify.Data.Models;
+using Stopify.Services.Mapping;
 using Stopify.Services.Models;
 using System;
 using System.Linq;
@@ -21,31 +22,34 @@ namespace Stopify.Services
 
         public async Task<bool> CreateReceipt(string recipientId)
         {
-            var orders = await this.context.Orders.Where(order => 
-                order.IssuerId == recipientId && order.Status.Name == "Active").ToListAsync();
-
             var receipt = new Receipt
             {
                 Id = Guid.NewGuid().ToString(),
                 IssuedOn = DateTime.UtcNow,
                 RecipientId = recipientId,
-                Orders = orders,
             };
 
+            await this.orderService.SetOrdersToReceipt(receipt);
             await this.context.Receipts.AddAsync(receipt);
-            var result = await this.context.SaveChangesAsync();
 
+            var result = await this.context.SaveChangesAsync();
             return result > 0;
         }
 
         public IQueryable<ReceiptServiceModel> GetAll()
         {
-            throw new System.NotImplementedException();
+            var receipts = this.context.Receipts.To<ReceiptServiceModel>();
+
+            return receipts;
         }
 
         public IQueryable<ReceiptServiceModel> GetAllByRecipientId(string recipientId)
         {
-            throw new System.NotImplementedException();
+            var receipts = this.context.Receipts
+                .Where(receipt => receipt.RecipientId == recipientId)
+                .To<ReceiptServiceModel>();
+
+            return receipts;
         }
     }
 }

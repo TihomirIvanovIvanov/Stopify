@@ -1,5 +1,5 @@
-﻿using Stopify.Services.Models;
-using System;
+﻿using Stopify.Data.Models;
+using Stopify.Services.Models;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,6 +11,6 @@ namespace Stopify.Services
 
         IQueryable<OrderServiceModel> GetAll();
 
-        //IQueryable<T> GetAll<T>(Func<OrderServiceModel, T> func);
+        Task SetOrdersToReceipt(Receipt receipt);
     }
 }
