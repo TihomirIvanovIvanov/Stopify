@@ -26,7 +26,7 @@ namespace Stopify.Services
             order.Status = await this.context.OrderStatuses.SingleOrDefaultAsync(status => status.Name == "Active");
             order.IssuedOn = DateTime.UtcNow;
 
-            this.context.Orders.Add(order);
+            await this.context.Orders.AddAsync(order);
             var result = await this.context.SaveChangesAsync();
 
             return result > 0;

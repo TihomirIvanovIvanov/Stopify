@@ -28,7 +28,7 @@ namespace Stopify.Services
             product.Id = Guid.NewGuid().ToString();
             product.ProductType = productTypeNameFromDb;
 
-            this.context.Products.Add(product);
+            await this.context.Products.AddAsync(product);
             var result = await this.context.SaveChangesAsync();
 
             return result > 0;
@@ -38,7 +38,7 @@ namespace Stopify.Services
         {
             var productType = Mapper.Map<ProductType>(productTypeServiceModel);
 
-            this.context.ProductTypes.Add(productType);
+            await this.context.ProductTypes.AddAsync(productType);
             var result = await this.context.SaveChangesAsync();
 
             return result > 0;
