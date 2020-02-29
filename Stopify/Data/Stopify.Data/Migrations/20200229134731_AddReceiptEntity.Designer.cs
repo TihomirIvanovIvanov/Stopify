@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Stopify.Data;
 
 namespace Stopify.Data.Migrations
 {
     [DbContext(typeof(StopifyDbContext))]
-    partial class StopifyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200229134731_AddReceiptEntity")]
+    partial class AddReceiptEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

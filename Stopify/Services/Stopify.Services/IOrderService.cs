@@ -1,4 +1,5 @@
 ﻿using Stopify.Services.Models;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,5 +10,7 @@ namespace Stopify.Services
         Task<bool> CreateOrder(OrderServiceModel orderServiceModel);
 
         IQueryable<OrderServiceModel> GetAll();
+
+        //IQueryable<T> GetAll<T>(Func<OrderServiceModel, T> func);
     }
 }

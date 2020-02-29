@@ -34,7 +34,9 @@ namespace Stopify.Services
 
         public IQueryable<OrderServiceModel> GetAll()
         {
-            var allActiveOrders = this.context.Orders.To<OrderServiceModel>();
+            var allActiveOrders = this.context.Orders
+                .Where(order => order.Status.Name == "Active")
+                .To<OrderServiceModel>();
 
             return allActiveOrders;
         }
