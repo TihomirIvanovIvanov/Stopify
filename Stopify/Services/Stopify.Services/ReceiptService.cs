@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Stopify.Data;
+﻿using Stopify.Data;
 using Stopify.Data.Models;
 using Stopify.Services.Mapping;
 using Stopify.Services.Models;
@@ -27,12 +26,20 @@ namespace Stopify.Services
                 Id = Guid.NewGuid().ToString(),
                 IssuedOn = DateTime.UtcNow,
                 RecipientId = recipientId,
+                Orders = this.context.Orders.Where(order =>
+                    order.IssuerId == recipientId && order.Status.Name == "Active").ToList()
             };
 
             await this.orderService.SetOrdersToReceipt(receipt);
-            await this.context.Receipts.AddAsync(receipt);
 
+            foreach (var order in receipt.Orders)
+            {
+                await this.orderService.CompleteOrder(order.Id);
+            }
+
+            await this.context.Receipts.AddAsync(receipt);
             var result = await this.context.SaveChangesAsync();
+
             return result > 0;
         }
 

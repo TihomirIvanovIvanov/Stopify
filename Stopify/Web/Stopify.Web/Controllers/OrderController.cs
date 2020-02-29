@@ -12,10 +12,12 @@ namespace Stopify.Web.Controllers
     public class OrderController : Controller
     {
         private readonly IOrderService orderService;
+        private readonly IReceiptService receiptService;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderService orderService, IReceiptService receiptService)
         {
             this.orderService = orderService;
+            this.receiptService = receiptService;
         }
 
         public async Task<IActionResult> Cart()
@@ -27,13 +29,14 @@ namespace Stopify.Web.Controllers
             return this.View(orders);
         }
 
-        [HttpPost]
-        [Route("/Order/Cart/Complete")]
-        public IActionResult Complete()
+        [HttpPost("/Order/Complete")]
+        public async Task<IActionResult> Complete()
         {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
+            await this.receiptService.CreateReceipt(userId);
 
-            return this.View();
+            return this.Redirect("/");
         }
     }
 }

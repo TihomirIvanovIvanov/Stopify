@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Stopify.Data.Models;
+using Stopify.Services.Mapping;
+using System;
 using System.Collections.Generic;
 
 namespace Stopify.Services.Models
 {
-    public class ReceiptServiceModel
+    public class ReceiptServiceModel : IMapFrom<Receipt>
     {
         public string Id { get; set; }
 

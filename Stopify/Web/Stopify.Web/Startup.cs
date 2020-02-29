@@ -63,6 +63,7 @@ namespace Stopify.Web
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IReceiptService, ReceiptService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }

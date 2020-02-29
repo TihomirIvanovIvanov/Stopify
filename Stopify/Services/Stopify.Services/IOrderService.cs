@@ -12,5 +12,7 @@ namespace Stopify.Services
         IQueryable<OrderServiceModel> GetAll();
 
         Task SetOrdersToReceipt(Receipt receipt);
+
+        Task<bool> CompleteOrder(string orderId);
     }
 }
