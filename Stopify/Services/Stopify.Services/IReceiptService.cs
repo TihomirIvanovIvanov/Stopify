@@ -6,7 +6,7 @@ namespace Stopify.Services
 {
     public interface IReceiptService
     {
-        Task<bool> CreateReceipt(string recipientId);
+        Task<string> CreateReceipt(string recipientId);
 
         IQueryable<ReceiptServiceModel> GetAll();
 

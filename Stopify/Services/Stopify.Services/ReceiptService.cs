@@ -19,7 +19,7 @@ namespace Stopify.Services
             this.orderService = orderService;
         }
 
-        public async Task<bool> CreateReceipt(string recipientId)
+        public async Task<string> CreateReceipt(string recipientId)
         {
             var receipt = new Receipt
             {
@@ -38,9 +38,9 @@ namespace Stopify.Services
             }
 
             await this.context.Receipts.AddAsync(receipt);
-            var result = await this.context.SaveChangesAsync();
+            await this.context.SaveChangesAsync();
 
-            return result > 0;
+            return receipt.Id;
         }
 
         public IQueryable<ReceiptServiceModel> GetAll()

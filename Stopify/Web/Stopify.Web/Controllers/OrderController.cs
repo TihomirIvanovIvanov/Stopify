@@ -34,9 +34,9 @@ namespace Stopify.Web.Controllers
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            await this.receiptService.CreateReceipt(userId);
+            var receiptId = await this.receiptService.CreateReceipt(userId);
 
-            return this.Redirect("/");
+            return this.Redirect($"/Receipt/Details/{receiptId}");
         }
     }
 }
