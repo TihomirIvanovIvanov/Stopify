@@ -23,10 +23,29 @@ namespace Stopify.Web.Controllers
         public async Task<IActionResult> Cart()
         {
             var orders = await this.orderService.GetAll()
+                .Where(user => user.IssuerId == this.User.FindFirst(ClaimTypes.NameIdentifier).Value)
                 .To<OrderCartViewModel>()
                 .ToListAsync();
 
             return this.View(orders);
+        }
+
+        [HttpPost]
+        [Route("/Order/{id}/Quantity/Reduce")]
+        public async Task<IActionResult> Reduce(string id)
+        {
+            await this.orderService.ReduceQuantity(id);
+
+            return this.Ok();
+        }
+
+        [HttpPost]
+        [Route("/Order/{id}/Quantity/Increase")]
+        public async Task<IActionResult> Increase(string id)
+        {
+            await this.orderService.IncreaseQuantity(id);
+
+            return this.Ok();
         }
 
         [HttpPost("/Order/Complete")]

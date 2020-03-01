@@ -57,6 +57,32 @@ namespace Stopify.Services
             return allActiveOrders;
         }
 
+        public async Task<bool> IncreaseQuantity(string orderId)
+        {
+            var orderFromDb = await this.context.Orders
+                .FirstOrDefaultAsync(order => order.Id == orderId);
+
+            orderFromDb.Quantity++;
+
+            this.context.Update(orderFromDb);
+            var result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
+        public async Task<bool> ReduceQuantity(string orderId)
+        {
+            var orderFromDb = await this.context.Orders
+                   .FirstOrDefaultAsync(order => order.Id == orderId);
+
+            orderFromDb.Quantity--;
+
+            this.context.Update(orderFromDb);
+            var result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
         public async Task SetOrdersToReceipt(Receipt receipt)
         {
             receipt.Orders = await this.context.Orders.Where(order =>
