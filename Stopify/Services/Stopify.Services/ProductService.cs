@@ -12,6 +12,14 @@ namespace Stopify.Services
 {
     public class ProductService : IProductService
     {
+        private const string PriceLowestToHighest = "price-lowest-to-highest";
+
+        private const string PriceHighestToLowest = "price-highest-to-lowest";
+
+        private const string DateOldestToLatest = "date-oldest-to-latest";
+
+        private const string DateLatestToOldest = "date-latest-to-oldest";
+
         private readonly StopifyDbContext context;
 
         public ProductService(StopifyDbContext context)
@@ -54,8 +62,23 @@ namespace Stopify.Services
             return result > 0;
         }
 
-        public IQueryable<ProductServiceModel> GetAllProducts()
+        public IQueryable<ProductServiceModel> GetAllProducts(string criteria = null)
         {
+            switch (criteria)
+            {
+                case PriceLowestToHighest:
+                    return this.GetAllProductsByPriceAscending().To<ProductServiceModel>();
+
+                case PriceHighestToLowest:
+                    return this.GetAllProductsByPriceDescending().To<ProductServiceModel>();
+
+                case DateOldestToLatest:
+                    return this.GetAllProductsByManufacturedOnAscending().To<ProductServiceModel>();
+
+                case DateLatestToOldest:
+                    return this.GetAllProductsByManufacturedOnDescending().To<ProductServiceModel>();
+            }
+
             var allProducts = this.context.Products.To<ProductServiceModel>();
 
             return allProducts;
@@ -74,6 +97,26 @@ namespace Stopify.Services
                 .FirstOrDefault(product => product.Id == id);
 
             return product;
+        }
+
+        private IQueryable<Product> GetAllProductsByPriceAscending()
+        {
+            return this.context.Products.OrderBy(product => product.Price);
+        }
+
+        private IQueryable<Product> GetAllProductsByPriceDescending()
+        {
+            return this.context.Products.OrderByDescending(product => product.Price);
+        }
+
+        private IQueryable<Product> GetAllProductsByManufacturedOnAscending()
+        {
+            return this.context.Products.OrderBy(product => product.ManufacturedOn);
+        }
+
+        private IQueryable<Product> GetAllProductsByManufacturedOnDescending()
+        {
+            return this.context.Products.OrderByDescending(product => product.ManufacturedOn);
         }
     }
 }

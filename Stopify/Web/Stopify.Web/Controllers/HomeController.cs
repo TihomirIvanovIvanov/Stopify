@@ -16,15 +16,17 @@ namespace Stopify.Web.Controllers
             this.productService = productService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery]string criteria = null)
         {
             if (this.User.Identity.IsAuthenticated)
             {
-                var products = await this.productService.GetAllProducts()
+                var products = await this.productService.GetAllProducts(criteria)
                     .To<ProductHomeViewModel>().ToListAsync();
 
                 return this.View(products);
             }
+
+            this.ViewData["criteria"] = criteria;
 
             return this.View();
         }

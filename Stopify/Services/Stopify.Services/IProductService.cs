@@ -9,7 +9,7 @@ namespace Stopify.Services
     {
         IQueryable<ProductTypeServiceModel> GetAllProductTypes();
 
-        IQueryable<ProductServiceModel> GetAllProducts();
+        IQueryable<ProductServiceModel> GetAllProducts(string criteria = null);
 
         ProductServiceModel GetById(string id);
 
