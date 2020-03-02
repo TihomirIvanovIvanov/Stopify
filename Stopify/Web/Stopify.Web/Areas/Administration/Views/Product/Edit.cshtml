@@ -18,7 +18,7 @@
                    class="form-control text-primary text-center"
                    id="name"
                    placeholder="Name..."
-                   value="Name"
+                   value="@Model.Name"
                    asp-for="Name">
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
@@ -31,7 +31,7 @@
                    class="form-control text-primary text-center"
                    id="price"
                    placeholder="Price..."
-                   value="Price"
+                   value="@Model.Price"
                    asp-for="Price">
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
@@ -45,7 +45,7 @@
                    class="form-control text-primary text-center"
                    id="manufacturedOn"
                    placeholder="Manufactured On..."
-                   value="ManufacturedOn"
+                   value="@Model.ManufacturedOn"
                    asp-for="ManufacturedOn">
             <span asp-validation-for="ManufacturedOn" class="text-danger"></span>
         </div>
@@ -69,7 +69,7 @@
         <select class="form-control text-primary" id="type" asp-for="ProductType">
             @foreach (var type in (IEnumerable<ProductCreateProductTypeViewModel>)this.ViewData["types"])
             {
-                @if (type.Name == type.Name)
+                @if (type.Name == Model.ProductType)
                 {
                     <option value="@type.Name" selected>@type.Name</option>
                 }
