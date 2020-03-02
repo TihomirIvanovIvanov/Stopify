@@ -6,6 +6,7 @@ using Stopify.Services.Mapping;
 using Stopify.Services.Models;
 using Stopify.Web.InputModels;
 using Stopify.Web.ViewModels.Product.Create;
+using Stopify.Web.ViewModels.Product.Delete;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -123,8 +124,29 @@ namespace Stopify.Web.Areas.Administration.Controllers
             return this.Redirect("/");
         }
 
-
         public async Task<IActionResult> Delete(string id)
+        {
+            var productDeleteViewModel = (await this.productService.GetById(id)).To<ProductDeleteViewModel>();
+
+            if (productDeleteViewModel == null)
+            {
+                //TODO: Error handling
+                return this.Redirect("/");
+            }
+
+            var allProductTypes = await this.productService.GetAllProductTypes().ToListAsync();
+
+            this.ViewData["types"] = allProductTypes.Select(productType => new ProductCreateProductTypeViewModel
+            {
+                Name = productType.Name
+            }).ToList();
+
+            return this.View(productDeleteViewModel);
+        }
+
+        [HttpPost]
+        [Route("/Administration/Product/Delete/{id}")]
+        public async Task<IActionResult> DeleteConfirm(string id)
         {
             await this.productService.DeleteById(id);
 
