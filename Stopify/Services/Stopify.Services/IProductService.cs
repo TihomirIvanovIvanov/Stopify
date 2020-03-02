@@ -11,11 +11,13 @@ namespace Stopify.Services
 
         IQueryable<ProductServiceModel> GetAllProducts(string criteria = null);
 
-        ProductServiceModel GetById(string id);
+        Task<ProductServiceModel> GetById(string id);
 
         Task<bool> DeleteById(string id);
 
         Task<bool> Create(ProductServiceModel productServiceModel);
+
+        Task<bool> Edit(string id, ProductServiceModel productServiceModel);
 
         Task<bool> CreateProductType(ProductTypeServiceModel productTypeServiceModel);
     }

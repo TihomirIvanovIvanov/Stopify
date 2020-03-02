@@ -91,10 +91,10 @@ namespace Stopify.Services
             return productTypes;
         }
 
-        public ProductServiceModel GetById(string id)
+        public async Task<ProductServiceModel> GetById(string id)
         {
-            var product = this.context.Products.To<ProductServiceModel>()
-                .FirstOrDefault(product => product.Id == id);
+            var product = await this.context.Products.To<ProductServiceModel>()
+                .FirstOrDefaultAsync(product => product.Id == id);
 
             return product;
         }
@@ -117,6 +117,25 @@ namespace Stopify.Services
         private IQueryable<Product> GetAllProductsByManufacturedOnDescending()
         {
             return this.context.Products.OrderByDescending(product => product.ManufacturedOn);
+        }
+
+        public async Task<bool> Edit(string id, ProductServiceModel productServiceModel)
+        {
+            var productTypeNameFromDb = await this.context.ProductTypes
+                .FirstOrDefaultAsync(productType => productType.Name == productServiceModel.ProductType.Name);
+
+            var product = await this.context.Products.FirstOrDefaultAsync(product => product.Id == id);
+
+            product.Name = productServiceModel.Name;
+            product.Price = productServiceModel.Price;
+            product.ManufacturedOn = productServiceModel.ManufacturedOn;
+            product.Picture = productServiceModel.Picture;
+            product.ProductType = productTypeNameFromDb;
+
+            this.context.Products.Update(product);
+            var result = await this.context.SaveChangesAsync();
+
+            return result > 0;
         }
     }
 }
