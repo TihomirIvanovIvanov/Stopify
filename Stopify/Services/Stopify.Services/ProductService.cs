@@ -61,6 +61,11 @@ namespace Stopify.Services
         {
             var product = await this.context.Products.FirstOrDefaultAsync(product => product.Id == id);
 
+            if (product == null)
+            {
+                throw new ArgumentNullException(nameof(product));
+            }
+
             this.context.Products.Remove(product);
             var result = await this.context.SaveChangesAsync();
 

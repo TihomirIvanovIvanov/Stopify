@@ -302,6 +302,49 @@ namespace Stopify.Tests.Services
             await Assert.ThrowsAsync<ArgumentNullException>(() => this.productService.Edit("Non existent", expectedData));
         }
 
+        [Fact]
+        public async Task Delete_WithCorrectData_ShouldPassSuccessfully()
+        {
+            var errorMsgPrefix = "ProductService Delete() method does not work properly.";
+
+            var context = StopifyDbContextInMemoryFactory.InitializeContext();
+            SeedData(context);
+            this.productService = new ProductService(context);
+
+            var testId = context.Products.First().To<ProductServiceModel>().Id;
+            var actualResult = await this.productService.DeleteById(testId);
+
+            Assert.True(actualResult, errorMsgPrefix);
+        }
+
+        [Fact]
+        public async Task Delete_WithCorrectData_ShouldDeleteSuccessfully()
+        {
+            var errorMsgPrefix = "ProductService Delete() method does not work properly.";
+
+            var context = StopifyDbContextInMemoryFactory.InitializeContext();
+            SeedData(context);
+            this.productService = new ProductService(context);
+
+            var testId = context.Products.First().To<ProductServiceModel>().Id;
+            await this.productService.DeleteById(testId);
+
+            var expectedCount = 1;
+            var actualCount = context.Products.Count();
+
+            Assert.True(expectedCount == actualCount, errorMsgPrefix);
+        }
+
+        [Fact]
+        public async Task Delete_WithNonExistentProductId_ShouldThrowArgumentNullException()
+        {
+            var context = StopifyDbContextInMemoryFactory.InitializeContext();
+            SeedData(context);
+            this.productService = new ProductService(context);
+
+            await Assert.ThrowsAsync<ArgumentNullException>(() => this.productService.DeleteById("Non existend"));
+        }
+
         private List<Product> GetDummyData()
         {
             return new List<Product>()
