@@ -129,7 +129,17 @@ namespace Stopify.Services
             var productTypeNameFromDb = await this.context.ProductTypes
                 .FirstOrDefaultAsync(productType => productType.Name == productServiceModel.ProductType.Name);
 
+            if (productTypeNameFromDb == null)
+            {
+                throw new ArgumentNullException(nameof(productTypeNameFromDb));
+            }
+
             var product = await this.context.Products.FirstOrDefaultAsync(product => product.Id == id);
+
+            if (product == null)
+            {
+                throw new ArgumentNullException(nameof(product));
+            }
 
             product.Name = productServiceModel.Name;
             product.Price = productServiceModel.Price;

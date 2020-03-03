@@ -258,6 +258,50 @@ namespace Stopify.Tests.Services
             Assert.True(actualResult, errorMsgPrefix);
         }
 
+        [Fact]
+        public async Task Edit_WithCorrectData_ShouldEditProductCorrectly()
+        {
+            var errorMsgPrefix = "ProductService Edit() method does not work properly.";
+
+            var context = StopifyDbContextInMemoryFactory.InitializeContext();
+            SeedData(context);
+            this.productService = new ProductService(context);
+
+            var expectedData = context.Products.First().To<ProductServiceModel>();
+            expectedData.Name = "Editted Name";
+            expectedData.Price = 0.01M;
+            expectedData.ManufacturedOn = DateTime.UtcNow;
+            expectedData.Picture = "Editted Picture";
+            expectedData.ProductType = context.ProductTypes.Last().To<ProductTypeServiceModel>();
+
+            await this.productService.Edit(expectedData.Id, expectedData);
+
+            var actualData = context.Products.First().To<ProductServiceModel>();
+
+            Assert.True(actualData.Name == expectedData.Name, errorMsgPrefix + " Name not editted properly.");
+            Assert.True(actualData.Price == expectedData.Price, errorMsgPrefix + " Price not editted properly.");
+            Assert.True(actualData.ManufacturedOn == expectedData.ManufacturedOn, errorMsgPrefix + " ManufacturedOn not editted properly.");
+            Assert.True(actualData.Picture == expectedData.Picture, errorMsgPrefix + " Picture not editted properly.");
+            Assert.True(actualData.ProductType.Name == expectedData.ProductType.Name, errorMsgPrefix + " ProductType Name not editted properly.");
+        }
+
+        [Fact]
+        public async Task Edit_WithNonExistentProductType_ShouldThrowArgumentNullException()
+        {
+            var context = StopifyDbContextInMemoryFactory.InitializeContext();
+            SeedData(context);
+            this.productService = new ProductService(context);
+
+            var expectedData = context.Products.First().To<ProductServiceModel>();
+            expectedData.Name = "Editted Name";
+            expectedData.Price = 0.01M;
+            expectedData.ManufacturedOn = DateTime.UtcNow;
+            expectedData.Picture = "Editted Picture";
+            expectedData.ProductType = context.ProductTypes.Last().To<ProductTypeServiceModel>();
+
+            await Assert.ThrowsAsync<ArgumentNullException>(() => this.productService.Edit("Non existent", expectedData));
+        }
+
         private List<Product> GetDummyData()
         {
             return new List<Product>()
