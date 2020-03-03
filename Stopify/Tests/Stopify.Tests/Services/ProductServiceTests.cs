@@ -191,6 +191,40 @@ namespace Stopify.Tests.Services
             }
         }
 
+        [Fact]
+        public async Task GetAllProductTypes_WithDummyData_ShouldReturnCorrectResults()
+        {
+            var errorMsgPrefix = "ProductService GetAllProductTypes() method does not work properly.";
+
+            var context = StopifyDbContextInMemoryFactory.InitializeContext();
+            SeedData(context);
+            this.productService = new ProductService(context);
+
+            var actualResult = await this.productService.GetAllProductTypes().ToListAsync();
+            var expectedResult = GetDummyData().Select(product => product.ProductType).To<ProductTypeServiceModel>().ToList();
+
+            for (int i = 0; i < expectedResult.Count; i++)
+            {
+                var expectedEntry = expectedResult[i];
+                var actualEntry = actualResult[i];
+
+                Assert.True(expectedEntry.Name == actualEntry.Name, errorMsgPrefix + " ProductType is not returned properly.");
+            }
+        }
+
+        [Fact]
+        public async Task GetAllProductTypes_WithZeroData_ShouldReturnEmptyResults()
+        {
+            var errorMsgPrefix = "ProductService GetAllProductTypes() method does not work properly.";
+
+            var context = StopifyDbContextInMemoryFactory.InitializeContext();
+            this.productService = new ProductService(context);
+
+            var actualResult = await this.productService.GetAllProductTypes().ToListAsync();
+
+            Assert.True(actualResult.Count == 0, errorMsgPrefix);
+        }
+
         private List<Product> GetDummyData()
         {
             return new List<Product>()
