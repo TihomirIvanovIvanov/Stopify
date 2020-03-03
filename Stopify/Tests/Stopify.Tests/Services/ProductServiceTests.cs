@@ -142,6 +142,55 @@ namespace Stopify.Tests.Services
             await Assert.ThrowsAsync<ArgumentNullException>(() => this.productService.Create(testProductService));
         }
 
+        [Fact]
+        public async Task GetAllProducts_WithDummyDataOrderedByPriceAscending_ShouldReturnCorrectResults()
+        {
+            var errorMsgPrefix = "ProductService GetAllProducts() method does not work properly.";
+
+            var context = StopifyDbContextInMemoryFactory.InitializeContext();
+            SeedData(context);
+            this.productService = new ProductService(context);
+
+            var actualResult = await this.productService.GetAllProducts("price-lowest-to-highest").ToListAsync();
+            var expectedResult = GetDummyData().OrderBy(product => product.Price).To<ProductServiceModel>().ToList();
+
+            for (int i = 0; i < expectedResult.Count; i++)
+            {
+                var expectedEntry = expectedResult[i];
+                var actualEntry = actualResult[i];
+
+                Assert.True(expectedEntry.Name == actualEntry.Name, errorMsgPrefix + " Name is not returned properly.");
+                Assert.True(expectedEntry.Price == actualEntry.Price, errorMsgPrefix + " Price is not returned properly.");
+                Assert.True(expectedEntry.Picture == actualEntry.Picture, errorMsgPrefix + " Picture is not returned properly.");
+                Assert.True(expectedEntry.ProductType.Name == actualEntry.ProductType.Name, errorMsgPrefix + " ProductType is not returned properly.");
+            }
+        }
+
+        [Fact]
+        public async Task GetAllProducts_WithDummyDataOrderedByPriceDescending_ShouldReturnCorrectResults()
+        {
+            var errorMsgPrefix = "ProductService GetAllProducts() method does not work properly.";
+
+            var context = StopifyDbContextInMemoryFactory.InitializeContext();
+            SeedData(context);
+            this.productService = new ProductService(context);
+
+            var actualResult = await this.productService.GetAllProducts("price-highest-to-lowest").ToListAsync();
+            var expectedResult = GetDummyData()
+                .OrderByDescending(product => product.Price).To<ProductServiceModel>().ToList();
+
+            for (int i = 0; i < expectedResult.Count; i++)
+            {
+                var expectedEntry = expectedResult[i];
+                var actualEntry = actualResult[i];
+
+                Assert.True(expectedEntry.Name == actualEntry.Name, errorMsgPrefix + " Name is not returned properly.");
+                Assert.True(expectedEntry.Price == actualEntry.Price, errorMsgPrefix + " Price is not returned properly.");
+                Assert.True(expectedEntry.Picture == actualEntry.Picture, errorMsgPrefix + " Picture is not returned properly.");
+                Assert.True(expectedEntry.ProductType.Name == actualEntry.ProductType.Name, errorMsgPrefix + " ProductType is not returned properly.");
+            }
+        }
+
         private List<Product> GetDummyData()
         {
             return new List<Product>()
