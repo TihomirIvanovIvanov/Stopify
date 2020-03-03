@@ -225,6 +225,39 @@ namespace Stopify.Tests.Services
             Assert.True(actualResult.Count == 0, errorMsgPrefix);
         }
 
+        [Fact]
+        public async Task CreateProductType_WithCorrectData_ShouldSuccessfullyCreate()
+        {
+            var errorMsgPrefix = "ProductService CreateProductType() method does not work properly.";
+
+            var context = StopifyDbContextInMemoryFactory.InitializeContext();
+            this.productService = new ProductService(context);
+
+            var testProductType = new ProductTypeServiceModel
+            {
+                Name = "Pesho",
+            };
+
+            var actualResult = await this.productService.CreateProductType(testProductType);
+
+            Assert.True(actualResult, errorMsgPrefix);
+        }
+
+        [Fact]
+        public async Task Edit_WithCorrectData_ShouldPassSuccessfully()
+        {
+            var errorMsgPrefix = "ProductService Edit() method does not work properly.";
+
+            var context = StopifyDbContextInMemoryFactory.InitializeContext();
+            SeedData(context);
+            this.productService = new ProductService(context);
+
+            var expectedData = context.Products.First().To<ProductServiceModel>();
+            var actualResult = await this.productService.Edit(expectedData.Id, expectedData);
+
+            Assert.True(actualResult, errorMsgPrefix);
+        }
+
         private List<Product> GetDummyData()
         {
             return new List<Product>()
