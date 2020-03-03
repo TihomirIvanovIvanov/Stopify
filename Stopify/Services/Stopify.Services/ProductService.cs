@@ -32,6 +32,11 @@ namespace Stopify.Services
             var productTypeNameFromDb = await this.context.ProductTypes
                 .FirstOrDefaultAsync(productType => productType.Name == productServiceModel.ProductType.Name);
 
+            if (productTypeNameFromDb == null)
+            {
+                throw new ArgumentNullException(nameof(productTypeNameFromDb));
+            }
+
             var product = Mapper.Map<Product>(productServiceModel);
             product.Id = Guid.NewGuid().ToString();
             product.ProductType = productTypeNameFromDb;

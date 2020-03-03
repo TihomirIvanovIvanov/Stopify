@@ -120,6 +120,28 @@ namespace Stopify.Tests.Services
             Assert.True(actualResult, errorMsgPrefix);
         }
 
+        [Fact]
+        public async Task Create_WithNonExistentProductType_ShouldThrowArgumentNullException()
+        {
+            var context = StopifyDbContextInMemoryFactory.InitializeContext();
+            SeedData(context);
+            this.productService = new ProductService(context);
+
+            var testProductService = new ProductServiceModel
+            {
+                Name = "Pesho",
+                Price = 5,
+                ManufacturedOn = DateTime.UtcNow,
+                Picture = "src/res/default.png",
+                ProductType = new ProductTypeServiceModel
+                {
+                    Name = "asdasda",
+                }
+            };
+
+            await Assert.ThrowsAsync<ArgumentNullException>(() => this.productService.Create(testProductService));
+        }
+
         private List<Product> GetDummyData()
         {
             return new List<Product>()
