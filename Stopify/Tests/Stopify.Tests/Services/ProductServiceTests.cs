@@ -64,7 +64,7 @@ namespace Stopify.Tests.Services
         [Fact]
         public async Task GetById_WithExistentId_ShouldReturnCorrectResult()
         {
-            var errorMsgPrefix = "ProductService GetAllProducts() method does not work properly.";
+            var errorMsgPrefix = "ProductService GetById() method does not work properly.";
 
             var context = StopifyDbContextInMemoryFactory.InitializeContext();
             SeedData(context);
@@ -83,7 +83,7 @@ namespace Stopify.Tests.Services
         [Fact]
         public async Task GetById_WithNonExistentId_ShouldReturnNull()
         {
-            var errorMsgPrefix = "ProductService GetAllProducts() method does not work properly.";
+            var errorMsgPrefix = "ProductService GetById() method does not work properly.";
 
             var context = StopifyDbContextInMemoryFactory.InitializeContext();
             SeedData(context);
@@ -92,6 +92,32 @@ namespace Stopify.Tests.Services
             var actualData = await this.productService.GetById("prakash");
 
             Assert.True(actualData == null, errorMsgPrefix + " Id is not returned properly.");
+        }
+
+        [Fact]
+        public async Task Create_WithCorrectData_ShouldSuccessfullyCreate()
+        {
+            var errorMsgPrefix = "ProductService Create() method does not work properly.";
+
+            var context = StopifyDbContextInMemoryFactory.InitializeContext();
+            SeedData(context);
+            this.productService = new ProductService(context);
+
+            var testProductService = new ProductServiceModel
+            {
+                Name = "Pesho",
+                Price = 5,
+                ManufacturedOn = DateTime.UtcNow,
+                Picture = "src/res/default.png",
+                ProductType = new ProductTypeServiceModel
+                {
+                    Name = "Television",
+                }
+            };
+
+            var actualResult = await this.productService.Create(testProductService);
+
+            Assert.True(actualResult, errorMsgPrefix);
         }
 
         private List<Product> GetDummyData()
@@ -107,7 +133,7 @@ namespace Stopify.Tests.Services
                     Picture = "src/pics/something/airconditioner",
                     ProductType = new ProductType
                     {
-                        Name = "Air Conditioner"
+                        Name = "AirConditioner"
                     }
                 },
                 new Product
@@ -119,7 +145,7 @@ namespace Stopify.Tests.Services
                     Picture = "src/pics/something/tv",
                     ProductType = new ProductType
                     {
-                        Name = "Televizion"
+                        Name = "Television"
                     }
                 }
             };
