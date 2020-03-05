@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Stopify.Services;
 using Stopify.Services.Mapping;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Stopify.Web.Controllers
 {
+    [Authorize]
     public class ReceiptController : Controller
     {
         private readonly IReceiptService receiptService;

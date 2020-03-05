@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Stopify.Services;
 using Stopify.Services.Mapping;
 using Stopify.Services.Models;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Stopify.Web.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly IProductService productService;

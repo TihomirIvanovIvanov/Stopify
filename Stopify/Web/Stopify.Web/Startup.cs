@@ -118,6 +118,7 @@ namespace Stopify.Web
                 }
             }
 
+            app.UseStatusCodePagesWithRedirects("/Identity/Account/Register");
             app.UseDeveloperExceptionPage();
             app.UseDatabaseErrorPage();
             app.UseHsts();
