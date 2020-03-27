@@ -27,7 +27,7 @@ namespace Stopify.Services
             using var memoryStream = new MemoryStream(destinationData);
             var uploadParams = new ImageUploadParams
             {
-                Folder = "product_image",
+                Folder = "stopify_product_image",
                 File = new FileDescription(fileName, memoryStream),
             };
 
