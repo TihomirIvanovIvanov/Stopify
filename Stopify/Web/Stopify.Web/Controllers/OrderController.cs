@@ -50,7 +50,7 @@ namespace Stopify.Web.Controllers
             return this.Ok();
         }
 
-        [HttpPost("/Order/Complete")]
+        [HttpPost("/Order/Cart/Complete")]
         public async Task<IActionResult> Complete()
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
