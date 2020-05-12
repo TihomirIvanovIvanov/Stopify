@@ -26,8 +26,6 @@ namespace Stopify.Services
                 Id = Guid.NewGuid().ToString(),
                 IssuedOn = DateTime.UtcNow,
                 RecipientId = recipientId,
-                Orders = this.context.Orders.Where(order =>
-                    order.IssuerId == recipientId && order.Status.Name == "Active").ToList()
             };
 
             await this.orderService.SetOrdersToReceipt(receipt);
